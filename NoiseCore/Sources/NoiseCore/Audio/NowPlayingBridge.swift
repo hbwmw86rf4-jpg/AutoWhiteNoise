@@ -19,17 +19,23 @@ public final class NowPlayingBridge {
         guard !installed else { return }
         installed = true
         let center = MPRemoteCommandCenter.shared()
+        // The command handlers are invoked on the main thread, but the compiler
+        // cannot see that, so each one asserts main-actor isolation explicitly.
         center.playCommand.addTarget { [weak self] _ in
-            self?.controller.start(named: nil, source: .remote); return .success
+            MainActor.assumeIsolated { self?.controller.start(named: nil, source: .remote) }
+            return .success
         }
         center.pauseCommand.addTarget { [weak self] _ in
-            self?.controller.stop(source: .remote); return .success
+            MainActor.assumeIsolated { self?.controller.stop(source: .remote) }
+            return .success
         }
         center.stopCommand.addTarget { [weak self] _ in
-            self?.controller.stop(source: .remote); return .success
+            MainActor.assumeIsolated { self?.controller.stop(source: .remote) }
+            return .success
         }
         center.togglePlayPauseCommand.addTarget { [weak self] _ in
-            self?.controller.toggle(source: .remote); return .success
+            MainActor.assumeIsolated { self?.controller.toggle(source: .remote) }
+            return .success
         }
         // Skip/seek make no sense for endless noise; disable so the UI hides them.
         center.nextTrackCommand.isEnabled = false

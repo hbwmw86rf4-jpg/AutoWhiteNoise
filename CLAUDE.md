@@ -13,10 +13,17 @@
 - Core constraint: iOS apps cannot self-launch at a time; Shortcuts automations + App Intents
   (`AudioPlaybackIntent`) are the sanctioned path. Mac and a plugged-in iPad can run a real scheduler
   and a LAN listener. Details in `docs/01-what-apple-allows.md`.
-- Plan and open questions in `docs/02-plan.md`. Phase 0 decisions are pending the owner's answers
-  (playback device, is the purifier smart, wife's phone automation OK, Xcode/dev account).
-- No code yet. When code starts: SwiftUI multiplatform app + `NoiseCore` Swift package. Nothing here
-  can be compiled in the Linux cloud session; builds and device tests happen on the owner's Mac.
+- Decisions (2026-11-03): universal app on all three platforms; the air purifier is NOT smart (it was
+  only an example of the sound); wife is OK with one automation on her phone; owner has a Mac with
+  Xcode and a developer account. Details and status in `docs/02-plan.md`.
+- Code layout: `NoiseCore/` Swift package (pure logic + fenced Apple-only audio/network code) and
+  `App/` SwiftUI multiplatform target generated from `project.yml` with XcodeGen.
+- The Linux cloud session CAN build and test `NoiseCore` by downloading the Swift toolchain from
+  swift.org (Ubuntu 24.04 x86_64, use `curl -C -` with retries; the proxy drops long transfers).
+  It CANNOT compile `App/` or the `#if canImport(AVFoundation|MediaPlayer|Network)` files; those
+  were syntax-parsed only. First compile happens on the owner's Mac; expect small fixes.
+- XCTest on Linux crashes if a test class is `@MainActor`; wrap test bodies in `MainActor.assumeIsolated`.
+- Swift language mode 5 on purpose (fewer strict-concurrency errors for a first build).
 
 ## Conventions
 - Before changing anything, check how it affects existing functions and say so.

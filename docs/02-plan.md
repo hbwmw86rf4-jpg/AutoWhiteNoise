@@ -73,7 +73,23 @@ for the air purifier (or a smart plug).
 
 **Phase 4 — polish.** iCloud preset sync, widgets / Control Center controls, Sleep-timer UI, TestFlight.
 
-## Questions that change the design (answer whenever)
+## Decisions (2026-11-03)
+
+1. **Universal app**: iPhone, iPad and Mac, so it can be started anywhere. Done in one SwiftUI codebase.
+2. **The air purifier is not smart.** It was only an example of the sound wanted ("fan"). No smart-device
+   trigger to wire for now; the Wi-Fi endpoint exists for later.
+3. **Wife's phone**: one automation on her phone is fine. The iMessage relay is the primary "she's up" signal.
+4. **Tooling**: Mac with Xcode and an Apple Developer account are available.
+5. **Quick win**: Shortcuts recipes for Apple's built-in Background Sounds are in `03-shortcuts-recipes.md`.
+
+## Status
+
+- Phase 1 and most of Phase 2 and 3 are written: core package with 44 passing tests, app target with
+  presets, schedules, automations guide, log, appliance mode, App Intents, lock-screen controls,
+  Wi-Fi endpoint. Not yet compiled on a Mac. See `04-build-and-install.md`.
+- Not done: iCloud preset sync, widgets / Control Center controls, an app icon, recorded sounds.
+
+## Original questions (answered above, kept for the record)
 
 1. **What should actually make the sound at night?** Your iPhone on the nightstand, a HomePod, an old
    iPad, or a Mac in the room? (Recommendation: an iPad or Mac in appliance mode is the only setup that
