@@ -26,12 +26,14 @@ targets:
         excludes: ["Info.plist", "AutoWhiteNoise.entitlements"]
     dependencies:
       - package: NoiseCore
-    info:
-      path: App/Info.plist
-    entitlements:
-      path: App/AutoWhiteNoise.entitlements
     settings:
       base:
+        # Point at the hand-written files. (XcodeGen's `info:`/`entitlements:`
+        # keys would *generate* and overwrite them, dropping the background-audio
+        # and local-network keys.)
+        INFOPLIST_FILE: App/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: App/AutoWhiteNoise.entitlements
         PRODUCT_BUNDLE_IDENTIFIER: com.CHANGEME.AutoWhiteNoise
         PRODUCT_NAME: AutoWhiteNoise
         MARKETING_VERSION: 0.1.0

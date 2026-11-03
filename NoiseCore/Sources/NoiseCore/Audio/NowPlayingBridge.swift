@@ -22,7 +22,7 @@ public final class NowPlayingBridge {
         // The command handlers are invoked on the main thread, but the compiler
         // cannot see that, so each one asserts main-actor isolation explicitly.
         center.playCommand.addTarget { [weak self] _ in
-            MainActor.assumeIsolated { self?.controller.start(named: nil, source: .remote) }
+            MainActor.assumeIsolated { _ = self?.controller.start(named: nil, source: .remote) }
             return .success
         }
         center.pauseCommand.addTarget { [weak self] _ in

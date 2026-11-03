@@ -24,9 +24,7 @@ struct AutoWhiteNoiseApp: App {
                 .environment(services.controller)
                 .onAppear { services.didBecomeActive() }
         }
-        #if os(macOS)
         .defaultSize(width: 760, height: 560)
-        #endif
 
         #if os(macOS)
         // A menu bar item so the Mac can sit closed-lid or in the background

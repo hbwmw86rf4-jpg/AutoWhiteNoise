@@ -48,7 +48,7 @@ struct StartSoundIntent: AudioPlaybackIntent {
         if case .failed(let why) = result {
             throw IntentError.failed(why)
         }
-        return .result(dialog: IntentDialog(stringLiteral: result.message))
+        return .result(dialog: IntentDialog("\(result.message)"))
     }
 }
 

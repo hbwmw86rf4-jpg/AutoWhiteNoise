@@ -22,7 +22,16 @@ final class AppServices {
     @ObservationIgnored private var observers: [NSObjectProtocol] = []
 
     private(set) var serverStatus: String = "Off"
-    private(set) var hostName: String = ProcessInfo.processInfo.hostName
+    /// Fallback host for the example URL. On iOS, `ProcessInfo.hostName` does a
+    /// blocking reverse-DNS lookup that can stall the main thread for seconds,
+    /// so it is only read on the Mac.
+    private(set) var hostName: String = {
+        #if os(macOS)
+        return ProcessInfo.processInfo.hostName
+        #else
+        return "this-device.local"
+        #endif
+    }()
 
     init() {
         let engine = NoiseEngine()
@@ -53,7 +62,9 @@ final class AppServices {
     func didBecomeActive() {
         // Catch up on anything missed while suspended (iPhone) or asleep (Mac).
         controller.runner.tick()
+        #if os(macOS)
         hostName = ProcessInfo.processInfo.hostName
+        #endif
         applySettings()
     }
 
