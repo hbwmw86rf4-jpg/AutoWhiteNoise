@@ -1,0 +1,11 @@
+# Xcode / SwiftPM
+.build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+.swiftpm/
+*.xcuserstate
+# XcodeGen output is regenerated from project.yml
+AutoWhiteNoise.xcodeproj/
+.DS_Store
