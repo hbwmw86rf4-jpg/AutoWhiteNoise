@@ -86,7 +86,9 @@ for the air purifier (or a smart plug).
 
 - Phase 1 and most of Phase 2 and 3 are written: core package with 44 passing tests, app target with
   presets, schedules, automations guide, log, appliance mode, App Intents, lock-screen controls,
-  Wi-Fi endpoint. Not yet compiled on a Mac. See `04-build-and-install.md`.
+  Wi-Fi endpoint. First compiled on the owner's Mac on 2026-11-03 (Xcode 27.1, Swift 6.4): the
+  macOS build and the iOS Simulator build both succeed with no code changes and no compiler
+  warnings; the 44 core tests pass on macOS. Not yet run on a real device. See `04-build-and-install.md`.
 - Not done: iCloud preset sync, widgets / Control Center controls, an app icon, recorded sounds.
 
 ## Original questions (answered above, kept for the record)

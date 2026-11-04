@@ -21,7 +21,13 @@
 - The Linux cloud session CAN build and test `NoiseCore` by downloading the Swift toolchain from
   swift.org (Ubuntu 24.04 x86_64, use `curl -C -` with retries; the proxy drops long transfers).
   It CANNOT compile `App/` or the `#if canImport(AVFoundation|MediaPlayer|Network)` files; those
-  were syntax-parsed only. First compile happens on the owner's Mac; expect small fixes.
+  were syntax-parsed only.
+- First compile on the owner's Mac happened 2026-11-03: Xcode 27.1 / Swift 6.4 on macOS 27 (Darwin 27).
+  macOS and iOS Simulator builds succeeded with zero code changes and zero compiler warnings; XcodeGen
+  2.46 (via Homebrew) left the hand-written `App/Info.plist` and entitlements untouched. Not yet run
+  on a real device. The owner has two iPhones paired with Xcode (an iPhone Air and an "iPhone Duo")
+  for later on-device testing; they must be plugged in and unlocked to install.
+- Simulator builds from the CLI: pass `id=<UDID>` in the destination, not `name=`; names were ambiguous.
 - XCTest on Linux crashes if a test class is `@MainActor`; wrap test bodies in `MainActor.assumeIsolated`.
 - Swift language mode 5 on purpose (fewer strict-concurrency errors for a first build).
 

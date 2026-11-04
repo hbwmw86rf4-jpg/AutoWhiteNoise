@@ -1,10 +1,21 @@
 # Build and install (on your Mac)
 
 Nothing in this repo can be compiled anywhere but a Mac with Xcode. The shared `NoiseCore`
-package is unit-tested on Linux in the cloud session; the SwiftUI app and the Apple-only audio,
-media-controls and network code were written carefully but **have not been compiled yet**. Expect
-a handful of small compiler complaints on the first build. Paste them back into the session and they
-get fixed.
+package is unit-tested on Linux in the cloud session. The SwiftUI app and the Apple-only audio,
+media-controls and network code were first compiled on 2026-11-03 with Xcode 27.1: both the
+macOS and the iOS Simulator builds succeed without changes. The app has **not yet been run** on
+a real iPhone, iPad or Mac; that is the next step.
+
+Command-line builds, if you prefer them to Xcode (no signing, so Simulator / local Mac only):
+
+```bash
+xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise -destination 'platform=macOS' \
+  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+# iOS Simulator: use id=<UDID from `xcrun simctl list devices available`>; `name=` can be
+# ambiguous when several runtimes carry the same device name.
+xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise \
+  -destination 'platform=iOS Simulator,id=<UDID>' CODE_SIGNING_ALLOWED=NO build
+```
 
 ## One-time setup
 
