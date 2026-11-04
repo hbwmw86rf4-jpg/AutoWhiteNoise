@@ -15,12 +15,6 @@ if ! command -v xcodegen >/dev/null 2>&1; then
   fi
 fi
 
-if grep -q "com.CHANGEME" project.yml; then
-  echo "Reminder: project.yml still says com.CHANGEME. Edit bundleIdPrefix and"
-  echo "PRODUCT_BUNDLE_IDENTIFIER to your own reverse-DNS name (e.g. com.yourname)"
-  echo "before the first device build. Continuing anyway so you can look around."
-fi
-
 xcodegen generate
 echo
 echo "Generated AutoWhiteNoise.xcodeproj. Opening it…"

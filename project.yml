@@ -2,7 +2,7 @@
 # The .xcodeproj is not committed; this file is the source of truth.
 name: AutoWhiteNoise
 options:
-  bundleIdPrefix: com.CHANGEME            # set to your reverse-DNS prefix, e.g. com.yourname
+  bundleIdPrefix: com.davindersandhu      # reverse-DNS prefix; change if you prefer another
   deploymentTarget:
     iOS: "17.0"
     macOS: "14.0"
@@ -34,7 +34,7 @@ targets:
         INFOPLIST_FILE: App/Info.plist
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: App/AutoWhiteNoise.entitlements
-        PRODUCT_BUNDLE_IDENTIFIER: com.CHANGEME.AutoWhiteNoise
+        PRODUCT_BUNDLE_IDENTIFIER: com.davindersandhu.AutoWhiteNoise
         PRODUCT_NAME: AutoWhiteNoise
         MARKETING_VERSION: 0.1.0
         CURRENT_PROJECT_VERSION: 1

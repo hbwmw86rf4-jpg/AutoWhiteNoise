@@ -26,8 +26,7 @@ xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise \
    git clone https://github.com/hbwmw86rf4-jpg/AutoWhiteNoise.git
    cd AutoWhiteNoise
    ```
-4. Edit `project.yml`: replace both `com.CHANGEME` occurrences with your own reverse-DNS prefix
-   (anything unique, e.g. `com.yourlastname`).
+4. `project.yml` uses the bundle prefix `com.davindersandhu`. Change it there if you prefer another.
 5. Run:
    ```bash
    ./scripts/bootstrap.sh
