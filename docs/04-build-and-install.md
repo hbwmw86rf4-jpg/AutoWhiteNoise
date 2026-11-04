@@ -35,12 +35,43 @@ xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise \
    The `.xcodeproj` is generated output and is not committed; `project.yml` is the source of truth.
    Re-run the script any time files are added.
 
+## Signing (already configured)
+
+`project.yml` carries `DEVELOPMENT_TEAM: 3R62C4X3YS` (the paid Apple Developer Program team
+"Davinder Sandhu") with automatic signing, so Xcode needs no manual team selection. Gotcha for
+anyone redoing this: the parenthesised ID in the certificate name
+"Apple Development: Davinder Sandhu (DJG862KS98)" is the *developer* ID, not the team ID; using
+it fails with "No Account for Team". The team ID is in the certificate's OU field and in Xcode →
+Settings → Accounts.
+
 ## In Xcode
 
-1. Select the **AutoWhiteNoise** target → **Signing & Capabilities** → pick your Team.
-2. Pick a run destination (your iPhone, an iPad, or **My Mac**) and press Run.
-3. On an iPhone the first time: Settings → General → VPN & Device Management → trust your
-   developer certificate.
+1. Pick a run destination (your iPhone, an iPad, or **My Mac**) and press Run.
+2. On an iPhone the first time: Settings → General → VPN & Device Management → trust your
+   developer certificate, and enable Developer Mode if asked.
+
+## Installing on an iPhone from the command line
+
+Plug the phone in and unlock it. Known devices:
+
+| Name | UDID |
+|---|---|
+| iPhoneDuoDavinder | 00008160-001E782E0ED0000A |
+| iPhoneDavinder (iPhone Air) | not yet captured (`xcrun devicectl list devices` shows it when connected) |
+
+```bash
+xcodegen generate
+UDID=00008160-001E782E0ED0000A
+xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise \
+  -destination "platform=iOS,id=$UDID" -allowProvisioningUpdates build
+APP=$(xcodebuild -project AutoWhiteNoise.xcodeproj -scheme AutoWhiteNoise \
+  -destination "platform=iOS,id=$UDID" -showBuildSettings 2>/dev/null \
+  | awk '/ TARGET_BUILD_DIR =/{print $3}')/AutoWhiteNoise.app
+xcrun devicectl device install app --device "$UDID" "$APP"
+xcrun devicectl device process launch --device "$UDID" com.davindersandhu.AutoWhiteNoise
+```
+
+First done 2026-11-04: installed and launched on iPhoneDuoDavinder with no errors.
 
 ## Running the core tests on the Mac
 

@@ -28,6 +28,15 @@
   on a real device. The owner has two iPhones paired with Xcode (an iPhone Air and an "iPhone Duo")
   for later on-device testing; they must be plugged in and unlocked to install.
 - Simulator builds from the CLI: pass `id=<UDID>` in the destination, not `name=`; names were ambiguous.
+- Signing (2026-11-04): team `3R62C4X3YS` (paid program, "Davinder Sandhu"), automatic signing, set in
+  `project.yml`. The parenthesised ID in the "Apple Development: … (DJG862KS98)" certificate is the
+  developer ID, NOT the team; using it fails with "No Account for Team". Bundle id
+  `com.davindersandhu.AutoWhiteNoise`.
+- On-device: installed and launched on iPhoneDuoDavinder (UDID `00008160-001E782E0ED0000A`) via
+  `xcrun devicectl` on 2026-11-04. Commands in `docs/04-build-and-install.md`. The iPhone Air
+  ("iPhoneDavinder") was unavailable at the time; capture its UDID when it is connected.
+- Mac sessions spawned from the cloud session (bridge environment) cannot `send_message` back
+  (trust restriction). Have them end with a plain-text report and read it with `list_events`.
 - XCTest on Linux crashes if a test class is `@MainActor`; wrap test bodies in `MainActor.assumeIsolated`.
 - Swift language mode 5 on purpose (fewer strict-concurrency errors for a first build).
 
